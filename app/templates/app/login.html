@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Login</h3>
+   <hr>
+   {% for message in messages %}
+      <h5 class="{{ message.tags }}"> {{ message }} </h5>
+  {% endfor %} 
+   <form action"" method="POST" class="shadow p-5">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="username" class="form-label">username</label>
+        <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="mb-3">
+        <label for="inputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword1" name="password">
+    </div>
+    <div class="text-end">
+        <input type="submit" value="Submit" class="btn btn-danger">
+        <a href="{% url 'forgetpassword' %}">forget password</a>
+    </div>
+ </form>  
+
+    <br>
+    <div class="text-center text-primary fw-bold"><small>New to ShoppinglyX ? <a href="{% url 'customerregistration' %}"
+       class="text-danger">Create an Account</a> </small></div>
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
