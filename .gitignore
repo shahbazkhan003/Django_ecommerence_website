@@ -1,0 +1,24 @@
+# Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+env/
+venv/
+
+# Django stuff
+db.sqlite3
+*.log
+
+# Secrets
+.env
+
+# Static files
+media/
+migrations
+
+# IDE files
+.vscode/
+.idea/
+
