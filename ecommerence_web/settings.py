@@ -140,8 +140,6 @@ REST_REGISTRATION = {
     'REGISTER_VERIFICATION_ENABLED': False,
     'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
     'RESET_PASSWORD_VERIFICATION_ENABLED': True,
-}
-REST_REGISTRATION = {
     'REGISTER_VERIFICATION_URL': 'https://frontend-host/verify-user/',
     'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-host/reset-password/',
     'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-host/verify-email/',
