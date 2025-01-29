@@ -31,3 +31,13 @@ class Buttomwearapi(generics.ListAPIView):
     permission_classes = [AllowAny]
     def get_queryset(self):
         return Product.objects.filter(category='BW')        
+    
+    
+class SearchProductAPI(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        keyword = self.request.GET.get('keyword', '')
+        return Product.objects.filter(title__icontains=keyword).order_by("-created_date") if keyword else Product.objects.none()
+    

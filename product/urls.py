@@ -6,4 +6,5 @@ urlpatterns = [
     path('mobile/',views.Mobileapi.as_view(),name='mobile'),
     path('topwear/',views.Topwearapi.as_view(),name='topwear'),
     path('buttomwear/',views.Buttomwearapi.as_view(),name='buttomwear'),
+    path('search/',views.SearchProductAPI.as_view(),name='search'),
 ]
