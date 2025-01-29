@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from .managers import CustomUserManager
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    """Custom user model with roles."""
+class CustomUser(AbstractBaseUser):
 
     class Roles(models.TextChoices):
         SELLER = "Seller", "Seller"
