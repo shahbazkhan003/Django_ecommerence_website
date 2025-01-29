@@ -3,7 +3,7 @@ from django.contrib.auth.base_user import BaseUserManager
 class CustomUserManager(BaseUserManager):
     """Manager for custom user model."""
 
-    def create_user(self, email, first_name, last_name, role, password=None, **extra_fields):
+    def create_user(self, email, first_name, last_name, password=None, **extra_fields):
         """Create and return a user with the given email and password."""
         if not email:
             raise ValueError("The Email field must be set")
@@ -12,7 +12,6 @@ class CustomUserManager(BaseUserManager):
             email=email,
             first_name=first_name,
             last_name=last_name,
-            role=role,  
             **extra_fields
         )
         user.set_password(password)
@@ -24,6 +23,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
+        # Call create_user with role explicitly set to 'Manager'
         return self.create_user(
             email=email,
             first_name=first_name,
