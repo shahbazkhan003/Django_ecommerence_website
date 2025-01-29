@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'app',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_registration',
+    'rest_framework_simplejwt',
 ]
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,12 +74,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ecommerence_web.wsgi.application'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -123,10 +121,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATIC_URL = '/static/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_ENABLED': False,
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': True,
+    'RESET_PASSWORD_VERIFICATION_ENABLED': True,
+    'REGISTER_VERIFICATION_URL': 'https://frontend-host/verify-user/',
+    'RESET_PASSWORD_VERIFICATION_URL': 'https://frontend-host/reset-password/',
+    'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-host/verify-email/',
+
+    'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
+}
