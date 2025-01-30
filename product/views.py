@@ -11,7 +11,6 @@ class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_class = ProductFilter  
 
 class searchView(generics.ListAPIView):
