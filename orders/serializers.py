@@ -5,6 +5,10 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = "__all__"
+        extra_kwargs = {
+            'user': {'required': False},
+            'product': {'required': False}  
+        }
 
     def validate_quantity(self, value):
         if value < 1:
@@ -28,4 +32,4 @@ class OrderPlacedSerializer(serializers.ModelSerializer):
         model = OrderPlaced
         fields = "__all__"
 
-    
+            
