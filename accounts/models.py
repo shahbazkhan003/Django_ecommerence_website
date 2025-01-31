@@ -23,11 +23,10 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
 
 class Address(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     state = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
-    locality = models.CharField(max_length=200)  
+    area = models.CharField(max_length=200)
     postal_code = models.IntegerField()
     
 
