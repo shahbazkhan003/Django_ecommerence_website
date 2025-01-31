@@ -2,7 +2,7 @@ from django.db import models
 from product.models import Product
 from accounts.models import CustomUser, Address
 
-class Cart(models.Model):
+class OrderItem(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)

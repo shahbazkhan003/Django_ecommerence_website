@@ -6,8 +6,8 @@ from rest_framework import generics
 
 
 class AddToCart(generics.CreateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
 
     def perform_create(self, serializer):
         product_id = self.request.data.get('prod_id')
@@ -15,15 +15,15 @@ class AddToCart(generics.CreateAPIView):
         serializer.save(user=self.request.user, product=product)
 
 class CartList(generics.ListAPIView):
-    serializer_class = CartSerializer
+    serializer_class = OrderItemSerializer
     def get_queryset(self):
-        return Cart.objects.filter(user=self.request.user)
+        return OrderItem.objects.filter(user=self.request.user)
     def list(self, request):
         cart = self.get_queryset()
-        amount = sum(p.quantity * p.product.discount_price for p in cart)
+        amount = sum(p.quantity * p.product.discount_price for p in OrderItem)
         shipping_amount = 70.0
-        total_amount = amount + shipping_amount if cart.exists() else 0
-        serializer = self.get_serializer(cart, many=True)
+        total_amount = amount + shipping_amount if OrderItem.exists() else 0
+        serializer = self.get_serializer(OrderItem, many=True)
         return Response({
             'cart': serializer.data,
             'amount': amount,
@@ -31,16 +31,16 @@ class CartList(generics.ListAPIView):
         })
 
 class PlusCart(generics.UpdateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
 
     def update(self, request, *args, **kwargs):
         prod_id = request.GET.get('prod_id')
-        cart_item = Cart.objects.filter(user=request.user, product=prod_id).first()
+        cart_item = OrderItem.objects.filter(user=request.user, product=prod_id).first()
         if cart_item:
             cart_item.quantity += 1
             cart_item.save()
-            amount = sum(p.quantity * p.product.discount_price for p in Cart.objects.filter(user=request.user))
+            amount = sum(p.quantity * p.product.discount_price for p in OrderItem.objects.filter(user=request.user))
             shipping_price = 70.0
             total_amount = amount + shipping_price
             data = {
@@ -51,17 +51,17 @@ class PlusCart(generics.UpdateAPIView):
             return Response(data)
 
 class MinusCart(generics.UpdateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
 
     def put(self, request, *args, **kwargs):
         prod_id = request.GET.get('prod_id')
-        cart_item = Cart.objects.filter(user=request.user, product=prod_id).first()  # Ensure this is correct
+        cart_item = OrderItem.objects.filter(user=request.user, product=prod_id).first()  # Ensure this is correct
         if cart_item:
             cart_item.quantity = max(0, cart_item.quantity - 1)
             cart_item.save()
         shipping_price = 70.0
-        amount = sum(p.quantity * p.product.discount_price for p in Cart.objects.filter(user=request.user))
+        amount = sum(p.quantity * p.product.discount_price for p in OrderItem.objects.filter(user=request.user))
         return Response({
             'quantity': cart_item.quantity if cart_item else 0,
             'amount': amount,
@@ -69,11 +69,11 @@ class MinusCart(generics.UpdateAPIView):
         })
 
 class RemoveCart(generics.DestroyAPIView):
-    queryset = Cart.objects.all()
+    queryset = OrderItem.objects.all()
 
     def delete(self, request, *args, **kwargs):
         prod_id = request.GET.get('prod_id')
-        cart_item = Cart.objects.filter(user=request.user, product=prod_id).first()
+        cart_item = OrderItem.objects.filter(user=request.user, product=prod_id).first()
         if cart_item:
             cart_item.delete()
 
@@ -86,7 +86,7 @@ class Checkout(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         user = request.user
         address = Address.objects.filter(user=user)
-        cart_products = Cart.objects.filter(user=user).select_related('product')
+        cart_products = OrderItem.objects.filter(user=user).select_related('product')
         sniping_price = 70.0
         total_amount = sum([item.quantity * item.product.discount_price for item in cart_products]) + sniping_price
         response_data = {
@@ -108,7 +108,7 @@ class PaymentDone(generics.CreateAPIView):
         user = request.user
         custid = request.data.get('custid')
         customer = get_object_or_404(Address, id=custid)
-        cart_items = Cart.objects.filter(user=user)  
+        cart_items = OrderItem.objects.filter(user=user)  
         for cart_item in cart_items:
             order_data = {
                 "user": user.id,
