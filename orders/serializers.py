@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import  OrderPlaced, OrderItem
+from .models import  OrderPlaced, OrderItems
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItem
+        model = OrderItems
         fields = "__all__"
         extra_kwargs = {
             'user': {'required': False},
