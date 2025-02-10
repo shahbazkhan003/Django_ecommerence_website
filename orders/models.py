@@ -21,7 +21,7 @@ class Order(models.Model):
         return str(self.id)
     
 class OrderItems(models.Model):
-    orders = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 

@@ -10,4 +10,4 @@ class OrderItemsAdmin(admin.ModelAdmin):
     
     
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderItem, OrderItemsAdmin)
+admin.site.register(OrderItems, OrderItemsAdmin)
