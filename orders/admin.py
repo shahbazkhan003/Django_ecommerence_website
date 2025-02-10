@@ -2,12 +2,12 @@ from django.contrib import admin
 from orders.models import *
 
 
-class OrderPlacedAdmin(admin.ModelAdmin):
+class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
 
 class OrderItemsAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)  
     
     
-admin.site.register(OrderPlaced, OrderPlacedAdmin)
-admin.site.register(OrderItems, OrderItemsAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderItem, OrderItemsAdmin)
