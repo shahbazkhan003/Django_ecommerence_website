@@ -4,6 +4,7 @@ from .serializers import OrderSerializer
 
 
 class CreateOrder(generics.CreateAPIView):
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
 
