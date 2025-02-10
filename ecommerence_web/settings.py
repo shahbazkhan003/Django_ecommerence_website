@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_registration',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_yasg',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
