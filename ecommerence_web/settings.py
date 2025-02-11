@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_registration',
     'django_filters',
     'rest_framework_simplejwt',
+    'drf_yasg',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -155,4 +156,14 @@ REST_REGISTRATION = {
     'REGISTER_EMAIL_VERIFICATION_URL': 'https://frontend-host/verify-email/',
 
     'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
+}
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False, 
 }
