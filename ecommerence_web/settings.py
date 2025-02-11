@@ -157,3 +157,13 @@ REST_REGISTRATION = {
 
     'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
 }
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False, 
+}

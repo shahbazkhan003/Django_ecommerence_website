@@ -27,7 +27,7 @@ schema_view = get_schema_view(
         default_version='v1',
         description="API documentation",
         terms_of_service="https://www.Ecommerence.com/terms/",
-        contact=openapi.Contact(email="sk9200919@email.com"),
+        contact=openapi.Contact(email="sk9200919@gmail.com"),
         license=openapi.License(name="Shahbaz khan"),
     ),
     public=True,
